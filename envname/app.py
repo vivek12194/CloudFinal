@@ -82,21 +82,26 @@ def processRequest(req):
                 yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
                 result = urlopen(yql_url).read()
                 data = json.loads(result)"""
-    res=query_api(req.get("result").get("parameters").get("Cuisine"),"NY")
-    z = makeWebhookResult(res)
-    return z
+    if req.get("result").get("action") == "restaurants":
+    	res=query_api(req.get("result").get("parameters").get("Cuisine"),"NY")
+    	z = makeWebhookResult(res)
+    	return z
+    else if 
 
 def makeWebhookResult(data):
     result=data
     if result is None:
         return {}
-    speech = "Here is a list acacsad"+ result
+    for x in result:
+    	n= str(x[name])
+    	speech = n+","
+    speech = "Here is a list"+ speech
     return {
-        "speech": speech,
-        "displayText": speech,
+    "speech": speech,
+    "displayText": speech,
         # "data": data,
         # "contextOut": [],
-        "source": "Yelp"
+    "source": "Yelp"
     }
 def obtain_bearer_token(host, path):
     """Given a bearer token, send a GET request to the API.
@@ -195,7 +200,8 @@ def query_api(term, location):
         #     len(businesses), business_id))
         response =get_business(bearer_token, business_id)
         # print(u'Result for business "{0}" found:'.format(business_id))
-    return ','.join([str(x['name']) for x in businesses])
+    #return ','.join([str(x['name']) for x in businesses])
+    return businesses
 
 
 
