@@ -86,8 +86,6 @@ def processRequest(req):
     	res=query_api(req.get("result").get("parameters").get("Cuisine"),"NY")
     	z = makeWebhookResult(res)
     	return z
-    else if 
-
 def makeWebhookResult(data):
     result=data
     if result is None:
