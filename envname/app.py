@@ -88,10 +88,10 @@ def processRequest(req):
     return z
 
 def makeWebhookResult(data):
-    result=data
-    if result is None:
-        return {}
- 	for x in result:
+    
+    # if result is None:
+    #     return {}
+ 	for x in data:
  		speech = "Here is a list"+ str(x['name'])
  		return {
         "speech": speech,
