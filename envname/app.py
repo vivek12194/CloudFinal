@@ -90,7 +90,7 @@ def makeWebhookResult(data):
     result=data
     if result is None:
         return {}
-    speech = result
+    speech = "speech" + result
     return {
         "speech": speech,
         "displayText": speech,
