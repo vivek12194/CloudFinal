@@ -91,14 +91,15 @@ def makeWebhookResult(data):
     result=data
     if result is None:
         return {}
-    speech = "Here is a list"+ result
-    return {
+ 	for x in result:
+ 		speech = "Here is a list"+ str(x['name'])
+ 		return {
         "speech": speech,
         "displayText": speech,
         # "data": data,
         # "contextOut": [],
         "source": "Yelp"
-    }
+     	}
 def obtain_bearer_token(host, path):
     """Given a bearer token, send a GET request to the API.
     Args:
@@ -196,8 +197,8 @@ def query_api(term, location):
         #     len(businesses), business_id))
         response =get_business(bearer_token, business_id)
         # print(u'Result for business "{0}" found:'.format(business_id))
-    return ','.join([str(x['name']) for x in businesses])
-
+    #return ','.join([str(x['name']) for x in businesses])
+    return businesses
 
 
 
