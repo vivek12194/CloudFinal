@@ -94,7 +94,7 @@ def makeWebhookResult(data):
     n=""
     new =""
  	for x in data:
- 		n = str(x['name']) + str(x['location'])
+ 		n = str(x['name'])
         new = new +n
 
 
