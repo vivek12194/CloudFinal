@@ -92,10 +92,13 @@ def makeWebhookResult(data):
     # if result is None:
     #     return {}
     n=""
+    new =""
  	for x in data:
- 		n = n + str(x['name']) + str(x['location']) + "\n"
+ 		n = str(x['name']) + str(x['location'])
+        new = new +n
 
-	speech= "Here is the list " + n
+
+	speech= "Here is the list " + new
 	return {
     "speech": speech,
     "displayText": speech,
