@@ -92,7 +92,8 @@ def makeWebhookResult(data):
     # if result is None:
     #     return {}
  	for x in data:
- 		speech = "Here is a list  "+ str(x['name']) + str(x['location'].display_address) + "\n"
+ 		speech = "Here is a list  "+ str(x['name']) + str(x['location']) + "\n"
+	
 	return {
     "speech": speech,
     "displayText": speech,
