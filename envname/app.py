@@ -93,9 +93,9 @@ def makeWebhookResult(data):
     #     return {}
     n=""
     new =""
- 	for x in data:
- 		n = str(x['name'])
-        new = new +n
+    for x in data:
+        n = str(x['name'])
+        new = new + n
 
 
 	speech= "Here is the list " + new
