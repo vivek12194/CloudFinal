@@ -84,11 +84,11 @@ def processRequest(req):
                 data = json.loads(result)"""
     if req.get("result").get("action") == "rating":
     	res=query_api(req.get("result").get("parameters").get("Cuisine"),"NY")
-    	z = makeWebhookResult(res)
+    	z = makeWebhookResult1(res)
     	return z
     elif req.get("result").get("action") == "restaurants":
         res=query_api(req.get("result").get("parameters").get("Cuisine"),"NY")
-        z = makeWebhookResult1(res)
+        z = makeWebhookResult(res)
         return z
 
 def makeWebhookResult1(data):
