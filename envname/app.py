@@ -82,10 +82,36 @@ def processRequest(req):
                 yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
                 result = urlopen(yql_url).read()
                 data = json.loads(result)"""
-    if req.get("result").get("action") == "restaurants":
+    if req.get("result").get("action") == "rating":
     	res=query_api(req.get("result").get("parameters").get("Cuisine"),"NY")
     	z = makeWebhookResult(res)
     	return z
+    elif req.get("result").get("action") == "restaurants":
+        res=query_api(req.get("result").get("parameters").get("Cuisine"),"NY")
+        z = makeWebhookResult1(res)
+        return z
+
+def makeWebhookResult1(data):
+    
+    # if result is None:
+    #     return {}
+    n=""
+    new =""
+    for x in data:
+        n = str(x['name']) + str(x['rating_img_url_small']) + "\n"
+        new = new + n
+
+
+    speech= "Here is the list " + new
+    return {
+    "speech": speech,
+    "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+    "source": "Yelp"
+    }
+    
+
 
 def makeWebhookResult(data):
     
