@@ -83,7 +83,7 @@ def webhook():
         sourceValue = res['hits']['hits'][idx]['_source']
         listOfDicts.append(sourceValue)
     # print (listOfDicts)
-    res=makeWebhookResult(listOfDicts)
+    res=makeWebhookResult(sourceValue)
     res=json.dumps(res,indent=4)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
@@ -150,7 +150,7 @@ def makeWebhookResult1(data):
 
 
 def makeWebhookResult(data):
-    speech= "Here is the list:"+','.join(str(i['rating']) for i in data)
+    speech= "Here is the list:"+','.join(str(i['name']) for i in data)
     return {
     "speech": speech,
     "displayText": speech,
