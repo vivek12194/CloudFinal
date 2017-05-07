@@ -73,12 +73,12 @@ def hello():
 @app.route('/webhook', methods=['POST','GET'])
 def webhook():
     req= request.get_json(silent=True, force=True)
-    t=req.get("result").get("parameters").get("Cuisine")
+    req=req.get("result").get("parameters").get("Cuisine")
 
     #eres = processRequest(req)
     es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
     print (t)
-    res = es.search(size=5000,index="fb", body={"query": {"match":{"type":t}}})
+    res = es.search(size=5000,index="fb", body={"query": {"match":{"type":req}}})
     # res = es.get(index="fb")
     listOfDicts = []
     for idx in range(len(res['hits']['hits'])):
