@@ -135,7 +135,7 @@ def makeWebhookResult1(data):
 
 
 def makeWebhookResult(data):
-    speech= "Here is the list " + data['rating']
+    speech= "Here is the list " + str(data['rating'])
     return {
     "speech": speech,
     "displayText": speech,
