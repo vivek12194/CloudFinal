@@ -72,11 +72,11 @@ def hello():
     return result
 @app.route('/webhook', methods=['POST','GET'])
 def webhook():
-    req = request.get_json(silent=True, force=True)
-    print(req)
-    # res = processRequest(req)
-    es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
+    req= request.get_json(silent=True, force=True)
     t=req.get("result").get("parameters").get("Cuisine")
+
+    #eres = processRequest(req)
+    es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
     print (t)
     res = es.search(size=5000,index="fb", body={"query": {"match":{"type":t}}})
     # res = es.get(index="fb")
