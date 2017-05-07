@@ -111,6 +111,24 @@ def processRequest(req):
 
 def makeWebhookResult1(data):
     
+
+
+
+    es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
+    res = es.search(size=5000,index="fb", body={"query": {"match":{"type":"japanese"}}})
+    print (res)
+    # res = es.get(index="fb")
+    listOfDicts = [dict() for num in range (len(res['hits']['hits']))]
+    for idx,elements in enumerate(listOfDicts) :
+        sourceValue = res['hits']['hits'][idx]['_source']
+        listOfDicts[idx]=dict(name=sourceValue['rating'])
+        xyz= xyz + sourceValue['rating']
+        print (sourceValue)
+
+
+    #return json.dumps(listOfDicts)
+
+
     # if result is None:
     #     return {}
     n=""
@@ -120,7 +138,7 @@ def makeWebhookResult1(data):
         new = new + n
 
 
-    speech= "Here is the list " + new
+    speech= "Here is the list " + xyz
     return {
     "speech": speech,
     "displayText": speech,
