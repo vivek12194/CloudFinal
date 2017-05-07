@@ -153,6 +153,23 @@ def makeWebhookResult(data):
     return {
     "speech": speech,
     "displayText": speech,
+
+    "data" : {
+        "facebook" : {
+            "attachment" : {
+                "type" : "template",
+                "payload" : {
+                    "template_type" : "generic",
+                    "elements" : [ 
+                        {
+                            "title" : "Indian",
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    
         # "data": data,
         # "contextOut": [],
     "source": "Yelp"
