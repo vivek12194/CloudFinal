@@ -79,11 +79,20 @@ def webhook():
     res = es.search(size=5000,index="fb", body={"query": {"match":{"type":req}}})
     # res = es.get(index="fb")
     listOfDicts = []
+    listOfRating=[]
+    listOfImage=[]
     for idx in range(len(res['hits']['hits'])):
         sourceValue = res['hits']['hits'][idx]['_source']
         text=sourceValue['name']
+        listOfRating.append(sourceValue['rating'])
+        listOfImage.append(sourceValue['image_url'])
         listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text]))    # print (listOfDicts)
-    res=makeWebhookResult(listOfDicts)
+    if req.get("result").get("action") =="rating":
+        res =makeWebhookResult1(sourceValue)
+    else :
+        res=makeWebhookResult(listOfDicts)
+
+
     res=json.dumps(res,indent=4)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
@@ -111,18 +120,20 @@ def processRequest(req):
     #     z = makeWebhookResult(res)
     #     return z
 
-def makeWebhookResult1(data):
+def makeWebhookResult1(data1):
     
     # if result is None:
     #     return {}
-    n=""
-    new =""
-    for x in data:
-        n = str(x['name'])
-        new = new + n
+    # n=""
+    # new =""
+    # for x in data:
+    #     n = str(x['name'])
+    #     new = new + n
 
-
-    speech= "Here is the list " + new
+    
+    speech= "Here is the list"
+    for i in data1:
+        speech = speech + str(data1['name']) + str(data1['rating']) + "\n"
     return {
     "speech": speech,
     "displayText": speech,
