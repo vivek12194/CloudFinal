@@ -155,20 +155,31 @@ def makeWebhookResult(data):
     "displayText": speech,
 
     "data" : {
-        "facebook" : {
-            "attachment" : {
-                "type" : "template",
-                "payload" : {
-                    "template_type" : "generic",
-                    "elements" : [ 
-                        {
-                            "title" : "Indian",
-                        }
-                    ]
+             "facebook": {
+          
+          "message": {
+            "attachment": {
+              "type": "template",
+              "payload": {
+                "template_type": "generic",
+                "elements": {
+                  "title": "MY_TITLE",
+                  "buttons": [
+                    {
+                      "title": "yes",
+                      "type": "postback"
+                    },
+                    {
+                      "title": "no",
+                      "type": "postback"
+                    }
+                  ]
                 }
+              }
             }
+          }
         }
-    },
+      },
     
         # "data": data,
         # "contextOut": [],
