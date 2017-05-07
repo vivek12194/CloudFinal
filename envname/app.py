@@ -120,7 +120,7 @@ def makeWebhookResult(data):
     n=""
     new =""
     for x in data:
-        n = str(x['name']) + str(x['address']) + "\n"
+        n = str(x['name']) + str(x['location']) + "\n"
         new = new + n
 
 
