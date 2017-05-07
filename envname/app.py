@@ -18,7 +18,7 @@ import requests
 import sys
 import urllib
 
-host = 'https://search-foodbot-mdkkcuxnaa5sp446if67scolgm.us-east-1.es.amazonaws.com'
+host = 'search-foodbot-mdkkcuxnaa5sp446if67scolgm.us-east-1.es.amazonaws.com'
 port = 443
 ES_CLIENT = Elasticsearch(
         hosts=[{'host': host,'port':port}],
