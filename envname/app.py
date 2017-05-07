@@ -136,7 +136,7 @@ def makeWebhookResult1(data):
 
 
 def makeWebhookResult(data):
-    speech= "Here is the list " + yo
+    speech= "Here is the list " + data
     return {
     "speech": speech,
     "displayText": speech,
