@@ -83,7 +83,7 @@ def webhook():
         sourceValue = res['hits']['hits'][idx]['_source']
         listOfDicts.append(sourceValue)
     # print (listOfDicts)
-    res=makeWebhookResult(sourceValue)
+    res=makeWebhookResult(listOfDicts)
     res=json.dumps(res,indent=4)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
