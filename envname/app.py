@@ -81,7 +81,7 @@ def webhook():
     listOfDicts = []
     for idx in range(len(res['hits']['hits'])):
         sourceValue = res['hits']['hits'][idx]['_source']
-        listOfDicts.append(sourceValue)
+        listOfDicts.append(sourceValue['name'])
     # print (listOfDicts)
     res=makeWebhookResult(listOfDicts)
     res=json.dumps(res,indent=4)
@@ -150,7 +150,7 @@ def makeWebhookResult1(data):
 
 
 def makeWebhookResult(data):
-    speech= "Here is the list:"+','.join(str(i['name']) for i in data)
+    speech= "Here is the list:"+','.join(str(i) for i in data)
     return {
     "speech": speech,
     "displayText": speech,
