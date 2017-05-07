@@ -75,7 +75,7 @@ def webhook():
     # req = request.get_json(silent=True, force=True)
     # res = processRequest(req)
     es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
-    res = es.search(size=5000,index="fb", body={"query": {"match":{"type":"japanese"}}})
+    res = es.search(size=5000,index="fb", body={"query": {"match":{"type":"Indian"}}})
     # res = es.get(index="fb")
     listOfDicts = []
     for idx in range(len(res['hits']['hits'])):
