@@ -76,18 +76,15 @@ def webhook():
     # res = processRequest(req)
     es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
     res = es.search(size=5000,index="fb", body={"query": {"match":{"type":"japanese"}}})
-    print (res)
     # res = es.get(index="fb")
-    listOfDicts = [dict() for num in range (len(res['hits']['hits']))]
-    for idx,elements in enumerate(listOfDicts) :
+    listOfDicts = []
+    for idx in range(len(res['hits']['hits'])):
         sourceValue = res['hits']['hits'][idx]['_source']
-        listOfDicts[idx]=dict(name=sourceValue['rating'])
-        print (sourceValue)
-    res = json.dumps(listOfDicts, indent=4)
-    yo="yo"
-    xyz=makeWebhookResult(yo)
-
-    r = make_response(xyz)
+        listOfDicts.append(sourceValue['name'])
+    # print (listOfDicts)
+    res=makeWebhookResult(listOfDicts)
+    res=json.dumps(res,indent=4)
+    r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
     # return json.dumps(listOfDicts)
@@ -136,7 +133,7 @@ def makeWebhookResult1(data):
 
 
 def makeWebhookResult(data):
-    speech= "Here is the list " + data
+    speech= "Here is the list:"+','.join(str(i) for i in data)
     return {
     "speech": speech,
     "displayText": speech,
