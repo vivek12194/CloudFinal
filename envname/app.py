@@ -73,16 +73,18 @@ def hello():
 @app.route('/webhook', methods=['POST','GET'])
 def webhook():
     req = request.get_json(silent=True, force=True)
+    print(req)
     # res = processRequest(req)
     es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
     t=req.get("result").get("parameters").get("Cuisine")
-    res = es.search(size=5000,index="fb", body={"query": {"match":{"type":t}}})
+    print (t)
+    res = es.search(size=5000,index="fb", body={"query": {"match":{"type":"indian"}}})
     # res = es.get(index="fb")
     listOfDicts = []
     for idx in range(len(res['hits']['hits'])):
         sourceValue = res['hits']['hits'][idx]['_source']
         listOfDicts.append(sourceValue['name'])
-    # print (listOfDicts)
+    print (listOfDicts)
     res=makeWebhookResult(listOfDicts)
     res=json.dumps(res,indent=4)
     r = make_response(res)
@@ -104,7 +106,7 @@ def processRequest(req):
                 data = json.loads(result)"""
    	#req.get("result").get("action") == "rating":
     res=query_api(req.get("result").get("parameters").get("Cuisine"),"NY")
-    z = makeWebhookResult1(res)
+    z = makeWebhookResult(res)
     return z
     # elif req.get("result").get("action") == "restaurants":
     #     res=query_api(req.get("result").get("parameters").get("Cuisine"),"NY")
@@ -151,6 +153,7 @@ def makeWebhookResult1(data):
 
 def makeWebhookResult(data):
     speech= "Here is the list:"+','.join(str(i) for i in data)
+    print (speech)
     return {
     "speech": speech,
     "displayText": speech,
