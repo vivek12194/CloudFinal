@@ -72,15 +72,16 @@ def hello():
     return result
 @app.route('/webhook', methods=['POST','GET'])
 def webhook():
-    # req = request.get_json(silent=True, force=True)
+    req = request.get_json(silent=True, force=True)
     # res = processRequest(req)
     es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
-    res = es.search(size=5000,index="fb", body={"query": {"match":{"type":"Indian"}}})
+    t=req.get("result").get("parameters").get("Cuisine")
+    res = es.search(size=5000,index="fb", body={"query": {"match":{"type":"t"}}})
     # res = es.get(index="fb")
     listOfDicts = []
     for idx in range(len(res['hits']['hits'])):
         sourceValue = res['hits']['hits'][idx]['_source']
-        listOfDicts.append(sourceValue['name'])
+        listOfDicts.append(sourceValue)
     # print (listOfDicts)
     res=makeWebhookResult(listOfDicts)
     res=json.dumps(res,indent=4)
@@ -149,37 +150,37 @@ def makeWebhookResult1(data):
 
 
 def makeWebhookResult(data):
-    speech= "Here is the list:"+','.join(str(i) for i in data)
+    speech= "Here is the list:"+','.join(str(i['rating']) for i in data)
     return {
     "speech": speech,
     "displayText": speech,
 
-    "data" : {
-             "facebook": {
+    # "data" : {
+    #          "facebook": {
           
-          "message": {
-            "attachment": {
-              "type": "template",
-              "payload": {
-                "template_type": "generic",
-                "elements": {
-                  "title": "MY_TITLE",
-                  "buttons": [
-                    {
-                      "title": "yes",
-                      "type": "postback"
-                    },
-                    {
-                      "title": "no",
-                      "type": "postback"
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        }
-      },
+    #       "message": {
+    #         "attachment": {
+    #           "type": "template",
+    #           "payload": {
+    #             "template_type": "generic",
+    #             "elements": {
+    #               "title": "MY_TITLE",
+    #               "buttons": [
+    #                 {
+    #                   "title": "yes",
+    #                   "type": "postback"
+    #                 },
+    #                 {
+    #                   "title": "no",
+    #                   "type": "postback"
+    #                 }
+    #               ]
+    #             }
+    #           }
+    #         }
+    #       }
+    #     }
+    #   },
     
         # "data": data,
         # "contextOut": [],
