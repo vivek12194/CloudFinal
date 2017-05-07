@@ -84,6 +84,8 @@ def webhook():
         listOfDicts[idx]=dict(name=sourceValue['rating'])
         print (sourceValue)
     res = json.dumps(listOfDicts, indent=4)
+    res=makeWebhookResult(res)
+    
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
