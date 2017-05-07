@@ -82,10 +82,10 @@ def processRequest(req):
                 yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
                 result = urlopen(yql_url).read()
                 data = json.loads(result)"""
-   	req.get("result").get("action") == "rating":
-	res=query_api(req.get("result").get("parameters").get("Cuisine"),"NY")
+   	#req.get("result").get("action") == "rating":
+    res=query_api(req.get("result").get("parameters").get("Cuisine"),"NY")
     z = makeWebhookResult1(res)
-    	return z
+    return z
     # elif req.get("result").get("action") == "restaurants":
     #     res=query_api(req.get("result").get("parameters").get("Cuisine"),"NY")
     #     z = makeWebhookResult(res)
