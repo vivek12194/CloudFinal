@@ -74,9 +74,6 @@ def hello():
 def webhook():
     # req = request.get_json(silent=True, force=True)
     # res = processRequest(req)
-    # res = json.dumps(res, indent=4)
-    # r = make_response(res)
-    # r.headers['Content-Type'] = 'application/json'
     es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
     res = es.search(size=5000,index="fb", body={"query": {"match":{"type":"japanese"}}})
     print (res)
@@ -84,9 +81,13 @@ def webhook():
     listOfDicts = [dict() for num in range (len(res['hits']['hits']))]
     for idx,elements in enumerate(listOfDicts) :
         sourceValue = res['hits']['hits'][idx]['_source']
-        listOfDicts[idx]=dict(name=sourceValue['name'])
+        listOfDicts[idx]=dict(name=sourceValue['rating'])
         print (sourceValue)
-    return json.dumps(listOfDicts)
+    res = json.dumps(listOfDicts, indent=4)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
+    # return json.dumps(listOfDicts)
     
 
 
@@ -111,24 +112,6 @@ def processRequest(req):
 
 def makeWebhookResult1(data):
     
-
-
-
-    es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
-    res = es.search(size=5000,index="fb", body={"query": {"match":{"type":"japanese"}}})
-    print (res)
-    # res = es.get(index="fb")
-    listOfDicts = [dict() for num in range (len(res['hits']['hits']))]
-    for idx,elements in enumerate(listOfDicts) :
-        sourceValue = res['hits']['hits'][idx]['_source']
-        listOfDicts[idx]=dict(name=sourceValue['rating'])
-        xyz= xyz + sourceValue['rating']
-        print (sourceValue)
-
-
-    #return json.dumps(listOfDicts)
-
-
     # if result is None:
     #     return {}
     n=""
@@ -138,7 +121,7 @@ def makeWebhookResult1(data):
         new = new + n
 
 
-    speech= "Here is the list " + xyz
+    speech= "Here is the list " + new
     return {
     "speech": speech,
     "displayText": speech,
@@ -150,15 +133,7 @@ def makeWebhookResult1(data):
 
 
 def makeWebhookResult(data):
-    
-    # if result is None:
-    #     return {}
-    n=""
-    new =""
-    for x in data:
-        n = str(x['name']) + str(x['location']) + "\n"
-        new = new + n
-    speech= "Here is the list " + new
+    speech= "Here is the list " + data
     return {
     "speech": speech,
     "displayText": speech,
