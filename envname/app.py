@@ -93,7 +93,7 @@ def webhook():
         listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text]))    # print (listOfDicts)
     if ac=="rating":
         res =makeWebhookResult1(listOfImage)
-    elif ac=="address"
+    elif ac=="address":
         res = makeWebhookResult2(listOfImage)
     else :
         res=makeWebhookResult(listOfDicts)
