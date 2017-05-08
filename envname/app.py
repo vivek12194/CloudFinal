@@ -75,28 +75,28 @@ def webhook():
     # req = request.get_json(silent=True, force=True)
     # ac=req.get("result").get("action")
     
-    # req=req.get("result").get("parameters").get("Cuisine")
+    req=req.get("result").get("parameters").get("Cuisine")
     
 
     # print (req)
     # es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
     # res = es.search(size=5,index="fb", body={"query": {"match":{"type":req}}})
     # # res = es.get(index="fb")
-    # listOfDicts = []
-    # listOfRating=[]
-    # listOfImage=    []
-    # for idx in range(len(res['hits']['hits'])):
-    #     sourceValue = res['hits']['hits'][idx]['_source']
-    #     text=sourceValue['name']
-    #     listOfRating.append(sourceValue['rating'])
-    #     listOfImage.append(sourceValue)
-    #     listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text]))    # print (listOfDicts)
-    # if ac=="rating":
-    #     res =makeWebhookResult1(listOfImage)
-    # elif ac=="address":
-    #     res = makeWebhookResult2(listOfImage)
-    # else :
-    #     res=makeWebhookResult(listOfDicts)
+    listOfDicts = []
+    listOfRating=[]
+    listOfImage=    []
+    for idx in range(len(res['hits']['hits'])):
+        sourceValue = res['hits']['hits'][idx]['_source']
+        text=sourceValue['name']
+        listOfRating.append(sourceValue['rating'])
+        listOfImage.append(sourceValue)
+        listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text]))    # print (listOfDicts)
+    if ac=="rating":
+        res =makeWebhookResult1(listOfImage)
+    elif ac=="address":
+        res = makeWebhookResult2(listOfImage)
+    else :
+        res=makeWebhookResult(listOfDicts)
 
 
     # res=json.dumps(res,indent=4)
@@ -104,7 +104,7 @@ def webhook():
     # r.headers['Content-Type'] = 'application/json'
     # return r
     # return json.dumps(listOfDicts)
-    res=
+    # res=makeWebhookResult()
     res=make_response(res)
     res.headers['Content-Type'] = 'application/json'
     return res
