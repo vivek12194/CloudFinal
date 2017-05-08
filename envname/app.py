@@ -93,6 +93,8 @@ def webhook():
         listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text]))    # print (listOfDicts)
     if ac=="rating":
         res =makeWebhookResult1(listOfImage)
+    elif ac=="address"
+        res = makeWebhookResult2(listOfImage)
     else :
         res=makeWebhookResult(listOfDicts)
 
@@ -123,6 +125,32 @@ def processRequest(req):
     #     res=query_api(req.get("result").get("parameters").get("Cuisine"),"NY")
     #     z = makeWebhookResult(res)
     #     return z
+
+
+
+
+def makeWebhookResult2(data1):
+    
+    # if result is None:
+    #     return {}
+    # n=""
+    # new =""
+    # for x in data:
+    #     n = str(x['name'])
+    #     new = new + n
+
+    
+    speech= "Here is the list"
+    for i in data1:
+        speech = speech + str(i['name']) + "" + str(i['location']['display_address']) + "\n"
+    return {
+    "speech": speech,
+    "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+    "source": "Yelp"
+    }
+
 
 def makeWebhookResult1(data1):
     
