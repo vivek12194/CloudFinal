@@ -96,7 +96,7 @@ def webhook():
     elif ac=="address":
         res = makeWebhookResult2(listOfImage)
     else :
-        res=makeWebhookResult(listOfDicts)
+        res=makeWebhookResult(listOfImage)
 
 
     # res=json.dumps(res,indent=4)
