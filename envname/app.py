@@ -106,20 +106,18 @@ def webhook():
     # return json.dumps(listOfDicts)
     res=json.dumps({'speech':'Ssup',
         "displayText":'Ssup',
-        "data": 
+        "data":{ 
          'facebook':{
-          "message": {
             "attachment": {
               "type": "template",
               "payload": {
                 "template_type": "generic",
-                "elements": {
+                "elements": [{
                   "title": "MY_TITLE",
-                }
+                }]
               }
             }
-          }
-        },
+        }},
         'source':'Yelp'},indent =4)
     res=make_response(res)
     res.headers['Content-Type'] = 'application/json'
