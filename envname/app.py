@@ -73,7 +73,7 @@ def hello():
 @app.route('/webhook', methods=['POST','GET'])
 def webhook():
     req = request.get_json(silent=True, force=True)
-    # ac=req.get("result").get("action")
+    ac=req.get("result").get("action")
     
     req=req.get("result").get("parameters").get("Cuisine")
     
