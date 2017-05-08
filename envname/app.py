@@ -142,7 +142,7 @@ def makeWebhookResult2(data1):
     
     speech= "Here is the list"
     for i in data1:
-        speech = speech + str(i['name']) + "" + str(i['location']['display_address']) + "\n"
+        speech = speech + str(i['name']) + "" + ','.join(str(x) for x in i['location'])  + "\n"
     return {
     "speech": speech,
     "displayText": speech,
