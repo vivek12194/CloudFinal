@@ -104,25 +104,7 @@ def webhook():
     # r.headers['Content-Type'] = 'application/json'
     # return r
     # return json.dumps(listOfDicts)
-    res=json.dumps({'speech':'Ssup',
-        "displayText":'Ssup',
-        "data":{ 
-         'facebook':{
-            "attachment": {
-              "type": "template",
-              "payload": {
-                "template_type": "generic",
-                "elements": [{
-                  "title": "MY_TITLE",
-                  "image_url":'https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2016%2F03%2F28%2F12%2F35%2Fcat-1285634_960_720.png&imgrefurl=https%3A%2F%2Fpixabay.com%2Fen%2Fphotos%2Fcat%2F&docid=GNgiwtR-iQNmZM&tbnid=TCzIUatmlfq74M%3A&vet=10ahUKEwj2_O37m9_TAhWIwiYKHb4LCqwQMwhdKAIwAg..i&w=960&h=603&bih=702&biw=1536&q=images&ved=0ahUKEwj2_O37m9_TAhWIwiYKHb4LCqwQMwhdKAIwAg&iact=mrc&uact=8'
-                },
-                {"title": "MY_TITLE1",
-                  "image_url":'https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2016%2F03%2F28%2F12%2F35%2Fcat-1285634_960_720.png&imgrefurl=https%3A%2F%2Fpixabay.com%2Fen%2Fphotos%2Fcat%2F&docid=GNgiwtR-iQNmZM&tbnid=TCzIUatmlfq74M%3A&vet=10ahUKEwj2_O37m9_TAhWIwiYKHb4LCqwQMwhdKAIwAg..i&w=960&h=603&bih=702&biw=1536&q=images&ved=0ahUKEwj2_O37m9_TAhWIwiYKHb4LCqwQMwhdKAIwAg&iact=mrc&uact=8'
-                }]
-              }
-            }
-        }},
-        'source':'Yelp'},indent =4)
+    res=
     res=make_response(res)
     res.headers['Content-Type'] = 'application/json'
     return res
@@ -165,15 +147,25 @@ def makeWebhookResult2(data1):
 
     
     speech= "Here is the list"
+    dict_of_elements=[]
     for i in data1:
-        speech = speech + str(i['name']) + "" + ','.join(str(x) for x in i['location'])  + "\n"
-    return {
-    "speech": speech,
-    "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
-    "source": "Yelp"
-    }
+        ducs={}
+        ducs['name']=i['name']
+        ducs['image_url']=i['image_url']
+        dict_of_elements.append(json.dumps(ducs)) 
+    return json.dumps({'speech':speech,
+        "displayText":speech,
+        "data":{ 
+         'facebook':{
+            "attachment": {
+              "type": "template",
+              "payload": {
+                "template_type": "generic",
+                "elements": dict_of_elements
+              }
+            }
+        }},
+        'source':'Yelp'},indent =4)
 
 
 def makeWebhookResult1(data1):
