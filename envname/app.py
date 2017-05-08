@@ -104,7 +104,9 @@ def webhook():
     # r.headers['Content-Type'] = 'application/json'
     # return r
     # return json.dumps(listOfDicts)
-    res=json.dumps({"data": {
+    res=json.dumps({'speech':'Ssup',
+        "displayText":'Ssup',
+        "data": {
           "message": {
             "attachment": {
               "type": "template",
@@ -116,7 +118,8 @@ def webhook():
               }
             }
           }
-        }},indent =4)
+        },
+        'source':'Yelp'},indent =4)
     res=make_response(res)
     res.headers['Content-Type'] = 'application/json'
     return res
