@@ -153,7 +153,7 @@ def makeWebhookResult2(data1):
         ducs={}
         ducs['name']=i['name']
         ducs['image_url']=i['image_url']
-        dict_of_elements.append(json.dumps(ducs)) 
+        dict_of_elements.append(ducs) 
     return {'speech':speech,
         "displayText":speech,
         "data":{ 
