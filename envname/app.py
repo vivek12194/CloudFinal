@@ -89,10 +89,10 @@ def webhook():
         sourceValue = res['hits']['hits'][idx]['_source']
         text=sourceValue['name']
         listOfRating.append(sourceValue['rating'])
-        listOfImage.append(sourceValue['image_url'])
+        listOfImage.append(sourceValue)
         listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text]))    # print (listOfDicts)
     if ac=="rating":
-        res =makeWebhookResult1(sourceValue)
+        res =makeWebhookResult1(listOfImage)
     else :
         res=makeWebhookResult(listOfDicts)
 
