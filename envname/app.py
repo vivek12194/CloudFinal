@@ -105,6 +105,7 @@ def webhook():
     # return r
     # return json.dumps(listOfDicts)
     # res=makeWebhookResult()
+    res=json.dumps(res,indent=4)
     res=make_response(res)
     res.headers['Content-Type'] = 'application/json'
     return res
@@ -153,7 +154,7 @@ def makeWebhookResult2(data1):
         ducs['name']=i['name']
         ducs['image_url']=i['image_url']
         dict_of_elements.append(json.dumps(ducs)) 
-    return json.dumps({'speech':speech,
+    return {'speech':speech,
         "displayText":speech,
         "data":{ 
          'facebook':{
@@ -165,7 +166,7 @@ def makeWebhookResult2(data1):
               }
             }
         }},
-        'source':'Yelp'},indent =4)
+        'source':'Yelp'}
 
 
 def makeWebhookResult1(data1):
