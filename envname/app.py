@@ -61,7 +61,7 @@ GRANT_TYPE = 'client_credentials'
 # Defaults for our simple example.
 DEFAULT_TERM = 'dinner'
 DEFAULT_LOCATION = 'San Francisco, CA'
-SEARCH_LIMIT = 4
+SEARCH_LIMIT =  4
 
 
 # Flask app should start in global layout
@@ -73,21 +73,25 @@ def hello():
 @app.route('/webhook', methods=['POST','GET'])
 def webhook():
     req = request.get_json(silent=True, force=True)
+    #ac=req.get("result").get("action")
+    ac="rating"
     req=req.get("result").get("parameters").get("Cuisine")
+    
+
     print (req)
     es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
     res = es.search(size=5000,index="fb", body={"query": {"match":{"type":req}}})
     # res = es.get(index="fb")
     listOfDicts = []
     listOfRating=[]
-    listOfImage=[]
+    listOfImage=    []
     for idx in range(len(res['hits']['hits'])):
         sourceValue = res['hits']['hits'][idx]['_source']
         text=sourceValue['name']
         listOfRating.append(sourceValue['rating'])
         listOfImage.append(sourceValue['image_url'])
         listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text]))    # print (listOfDicts)
-    if req.get("result").get("action") =="rating":
+    if ac=="rating":
         res =makeWebhookResult1(sourceValue)
     else :
         res=makeWebhookResult(listOfDicts)
