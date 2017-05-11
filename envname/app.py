@@ -93,7 +93,7 @@ def webhook():
             listOfImage.append(sourceValue)
             listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text]))    # print (listOfDicts)
 
-    if ac=="previousContext":
+    elif ac=="previousContext":
         #ac=my_previous_action
         #place=req.get("result").get("parameters").get("geo-city")
         req=req.get("result").get("parameters").get("Cuisine")
