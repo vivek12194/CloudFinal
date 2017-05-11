@@ -82,8 +82,8 @@ def webhook():
         ac=my_previous_action
         place=req.get("result").get("parameters").get("geo-city")
         req=req.get("result").get("parameters").get("Cuisine")
-        global par
-        par = req1.get("result").get("parameters").get("myparam")
+        global para
+        para = req1.get("result").get("parameters").get("myparam")
 
 
     else :
@@ -208,8 +208,8 @@ def makeWebhookResult1(data1):
 
 
 def makeWebhookResult(data):
-    global par
-    if par ==0:
+    global para
+    if para ==0:
         speech= "Here is the list:"+','.join(str(i) for i in data)
         return {
         "speech": speech,
