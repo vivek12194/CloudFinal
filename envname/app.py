@@ -213,6 +213,7 @@ def makeWebhookResult1(data1):
 
 
 def makeWebhookResult(data):
+    global para
     if para ==0:
         speech= "Here is the list:"+','.join(str(i['phone']) for i in data)
         return {
