@@ -260,43 +260,41 @@ def makeWebhookResult2(data1):
         'source':'Yelp'}
 
 def makeWebhookResult1(data):
-    return {'speech':'Sorry I could not come up with restaurants at this time',
-        "displayText":'Sorry I could not come up with restaurants at this time',
-        'source':'API'}
-    # dict_of_elements=[]
-    # for i in data:
-    #     ducs={}
-    #     ducs['title']=i['name']
-    #     ducs['image_url']=i['image_url']
-    #     ducs['subtitle']=i['price']
-    #     new={}
-    #     new['type']='web_url'
-    #     new['url']=i['url']
-    #     new['title']='View website'
-    #     newPhone={}
-    #     newPhone['type']='phone_number'
-    #     newPhone['payload']=i['phone']
-    #     newPhone['title']='Call'
-    #     newList=[]
-    #     #mapOpener['payload']=location+''.join(str(x) for x in i['location']).replace(' ','+')
-    #     newList.append(new)
-    #     newList.append(newPhone)
-    #     #newList.append(mapOpener)
-    #     ducs['buttons']=newList
-    #     dict_of_elements.append(ducs)
-    # return {'speech':"Here is a list",
-    #     "displayText":"Here is a list",
-    #     "data":{
-    #     'facebook':{
-    #     "attachment": {
-    #     "type": "template",
-    #     "payload": {
-    #     "template_type": "generic",
-    #     "elements": dict_of_elements
-    #     }
-    #     }
-    #     }},
-    # source:'API'}
+    
+    dict_of_elements=[]
+    for i in data:
+        ducs={}
+        ducs['title']=i['name']
+        ducs['image_url']=i['image_url']
+        ducs['subtitle']=i['price']
+        new={}
+        new['type']='web_url'
+        new['url']=i['url']
+        new['title']='View website'
+        newPhone={}
+        newPhone['type']='phone_number'
+        newPhone['payload']=i['phone']
+        newPhone['title']='Call'
+        newList=[]
+        #mapOpener['payload']=location+''.join(str(x) for x in i['location']).replace(' ','+')
+        newList.append(new)
+        newList.append(newPhone)
+        #newList.append(mapOpener)
+        ducs['buttons']=newList
+        dict_of_elements.append(ducs)
+    return {'speech':"Here is a list",
+        "displayText":"Here is a list",
+        "data":{
+        'facebook':{
+        "attachment": {
+        "type": "template",
+        "payload": {
+        "template_type": "generic",
+        "elements": dict_of_elements
+        }
+        }
+        }},
+    source:'API'}
     
 
 
