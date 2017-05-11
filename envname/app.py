@@ -166,7 +166,9 @@ def webhook():
         text=sourceValue['name']
         listOfRating.append(sourceValue['rating'])
         listOfImage.append(sourceValue)
-        listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text]))    # print (listOfDicts)
+        listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text]))
+    if para!=0:
+        listOfImage=sorted(listOfImage,key=lambda key:key[para],reverse=True)
   
 
     if ac=="rating":
