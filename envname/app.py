@@ -87,7 +87,7 @@ def webhook():
 
 
     else :
-        place=req.get("result").get("parameters").get("geo-city")
+       # place=req.get("result").get("parameters").get("geo-city")
         req=req.get("result").get("parameters").get("Cuisine")
 
     
