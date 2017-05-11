@@ -83,7 +83,7 @@ def webhook():
         place=req.get("result").get("parameters").get("geo-city")
         req=req.get("result").get("parameters").get("Cuisine")
         global par
-        par = req1.get("result").get("parameters").get(myparam)
+        par = req1.get("result").get("parameters").get("myparam")
 
 
     else :
@@ -112,7 +112,7 @@ def webhook():
     elif ac=="address":
         res = makeWebhookResult2(listOfImage)
     elif ac=="display":
-        res = makeWebhookResult(req1)
+        res = makeWebhookResult(listOfImage)
     else :
         res=makeWebhookResult(listOfImage)
 
