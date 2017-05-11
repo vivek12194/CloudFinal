@@ -253,50 +253,49 @@ def makeWebhookResult1(data1):
 
 def makeWebhookResult(data):
     global para
-    # if para ==0:
-    #     speech= "Here is the list:"+','.join(str(i['phone']) for i in data)
-    #     return {
-    #     "speech": speech,
-    #     "displayText": speech,
-    #     # "data": data,
-    #     # "contextOut: [],
-    #     "source": "Yelp"
-    #     }
-    dict_of_elements=[]
-    for i in data:
-        ducs={}
-        ducs['title']=i['name']
-        ducs['image_url']=i['image_url']
-        ducs['subtitle']=i['price']
-        new={}
-        new['type']='web_url'
-        new['url']=i['url']
-        new['title']='View website'
-        newPhone={}
-        newPhone['type']='phone_number'
-        newPhone['payload']=i['phone']
-        newPhone['title']='Call'
-        newList=[]
-        #mapOpener['payload']=location+''.join(str(x) for x in i['location']).replace(' ','+')
-        newList.append(new)
-        newList.append(newPhone)
-        #newList.append(mapOpener)
-        ducs['buttons']=newList
-        dict_of_elements.append(ducs)
+    speech= "Here is the list:"+','.join(str(i['phone']) for i in data)
+    return {
+    "speech": speech,
+    "displayText": speech,
+        # "data": data,
+        # "contextOut: [],
+        "source": "Yelp"
+    }
+    # dict_of_elements=[]
+    # for i in data:
+    #     ducs={}
+    #     ducs['title']=i['name']
+    #     ducs['image_url']=i['image_url']
+    #     ducs['subtitle']=i['price']
+    #     new={}
+    #     new['type']='web_url'
+    #     new['url']=i['url']
+    #     new['title']='View website'
+    #     newPhone={}
+    #     newPhone['type']='phone_number'
+    #     newPhone['payload']=i['phone']
+    #     newPhone['title']='Call'
+    #     newList=[]
+    #     #mapOpener['payload']=location+''.join(str(x) for x in i['location']).replace(' ','+')
+    #     newList.append(new)
+    #     newList.append(newPhone)
+    #     #newList.append(mapOpener)
+    #     ducs['buttons']=newList
+    #     dict_of_elements.append(ducs)
 
-    return {'speech':speech,
-        "displayText":speech,
-        "data":{
-        'facebook':{
-        "attachment": {
-        "type": "template",
-        "payload": {
-        "template_type": "generic",
-        "elements": dict_of_elements
-        }
-        }
-        }},
-        'source':'Yelp'}
+    # return {'speech':speech,
+    #     "displayText":speech,
+    #     "data":{
+    #     'facebook':{
+    #     "attachment": {
+    #     "type": "template",
+    #     "payload": {
+    #     "template_type": "generic",
+    #     "elements": dict_of_elements
+    #     }
+    #     }
+    #     }},
+    #     'source':'Yelp'}
 
 def obtain_bearer_token(host, path):
     """Given a bearer token, send a GET request to the API.
