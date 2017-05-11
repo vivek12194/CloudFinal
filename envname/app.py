@@ -84,10 +84,10 @@ def webhook():
         req=req.get("result").get("parameters").get("Cuisine")
         global para
         para = req1.get("result").get("parameters").get("myparam")
-        if req1.get("result").get("parameters").get("geo-city"):
-            loc=req1.get("result").get("parameters").get("geo-city")
-        else:
-            loc=req1.get("result").get("parameters").get("geo-state-us")
+        #if req1.get("result").get("parameters").get("geo-city"):
+        loc=req1.get("result").get("parameters").get("geo-city")
+        #else:
+            #loc=req1.get("result").get("parameters").get("geo-state-us")
 
 
 
