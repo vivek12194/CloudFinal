@@ -240,17 +240,12 @@ def makeWebhookResult2(data1):
         'source':'Yelp'}
 
 def makeWebhookResult1(data1):
-    
-    # if result is None:
-    #     return {}
-    # n=""
-    # new =""
-    # for x in data:
-    #     n = str(x['name'])
-    #     new = new + n
-
-    
-    speech= "Here is the list"
+    if len(data1)>0:
+        speech= "Here is the list"
+    else :
+        return {'speech':'Sorry I could not comme up with restaurants at this time',
+        "displayText":'Sorry I could not comme up with restaurants at this time',
+        'source':'API'}
     for i in data1:
         speech = speech + str(i['name']) + str(i['rating']) + "\n"
     return {
@@ -264,15 +259,12 @@ def makeWebhookResult1(data1):
 
 
 def makeWebhookResult(data):
-    # global para
-    # speech= "Here is the list:"+','.join(str(i['phone']) for i in data)
-    # return {
-    # "speech": speech,
-    # "displayText": speech,
-    #     # "data": data,
-    #     # "contextOut: [],
-    #     "source": "Yelp"
-    # }
+    if len(data)>0:
+        speech= "Here is the list"
+    else :
+        return {'speech':'Sorry I could not comme up with restaurants at this time',
+        "displayText":'Sorry I could not comme up with restaurants at this time',
+        'source':'API'}
     dict_of_elements=[]
     for i in data:
         ducs={}
