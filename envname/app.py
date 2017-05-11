@@ -149,39 +149,40 @@ def processRequest(req):
 
 
 
-
 def makeWebhookResult2(data1):
-    
-    # if result is None:
-    #     return {}
-    # n=""
-    # new =""
-    # for x in data:
-    #     n = str(x['name'])
-    #     new = new + n
-
-    
     speech= "Here is the list"
     dict_of_elements=[]
     for i in data1:
         ducs={}
         ducs['title']=i['name']
         ducs['image_url']=i['image_url']
-        dict_of_elements.append(ducs) 
-    return {'speech':speech,
+        ducs['subtitle']=i['price']
+        new={}
+        new['type']='web_url'
+        new['url']=i['url']
+        new['title']='View website'
+        newPhone={}
+        newPhone['type']='phone_number'
+        newPhone['payload']=i['phone']
+        newPhone['title']='Call'
+        newList=[]
+        newList.append(new)
+        newList.append(newPhone)
+        ducs['buttons']=newList
+        dict_of_elements.append(ducs)
+        return {'speech':speech,
         "displayText":speech,
-        "data":{ 
-         'facebook':{
-            "attachment": {
-              "type": "template",
-              "payload": {
-                "template_type": "generic",
-                "elements": dict_of_elements
-              }
-            }
+        "data":{
+        'facebook':{
+        "attachment": {
+        "type": "template",
+        "payload": {
+        "template_type": "generic",
+        "elements": dict_of_elements
+        }
+        }
         }},
         'source':'Yelp'}
-
 
 def makeWebhookResult1(data1):
     
