@@ -167,10 +167,10 @@ def makeWebhookResult2(data1):
         newPhone['payload']=i['phone']
         newPhone['title']='Call'
         newList=[]
-        mapOpener['payload']=location+''.join(str(x) for x in i['location']).replace(' ','+')
+        #mapOpener['payload']=location+''.join(str(x) for x in i['location']).replace(' ','+')
         newList.append(new)
         newList.append(newPhone)
-        newList.append(mapOpener)
+        #newList.append(mapOpener)
         ducs['buttons']=newList
         dict_of_elements.append(ducs)
 
@@ -226,7 +226,7 @@ def makeWebhookResult(data):
     else :
         speech= "Here is the list"
         for i in data:
-            speech = speech + str(i['name']) + str(i['rating']) + "\n"
+            speech = speech + str(i['name']) + str(i['para']) + "\n"
         return {
         "speech": speech,
         "displayText": speech,
