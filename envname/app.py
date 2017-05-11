@@ -87,7 +87,7 @@ def webhook():
         if req1.get("result").get("parameters").get("geo-city"):
             loc=req1.get("result").get("parameters").get("geo-city")
         else:
-            loc=req1.get("result").get("parameters").get("geo-state")
+            loc=req1.get("result").get("parameters").get("geo-state-us")
 
 
 
