@@ -172,7 +172,7 @@ def makeWebhookResult2(data1):
         mapOpener['title']='Open in Maps'
         mapOpener['payload']=location+''.join(str(x) for x in i['location']).replace(' ','+')
         newList.append(new)
-        newList.append(newPhone)
+        #newList.append(newPhone)
         newList.append(mapOpener)
         ducs['buttons']=newList
         dict_of_elements.append(ducs)
