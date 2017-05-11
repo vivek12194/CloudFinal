@@ -79,11 +79,43 @@ def webhook():
     ac=req.get("result").get("action")
     my_previous_action=req.get("result").get("parameters").get("my-action")
     if ac=="previousContext":
-        ac=my_previous_action
+        #ac=my_previous_action
         #place=req.get("result").get("parameters").get("geo-city")
         req=req.get("result").get("parameters").get("Cuisine")
         global para
         para = req1.get("result").get("parameters").get("myparam")
+        loc=req1.get("result").get("parameters").get("geo-city")
+
+
+    elif ac=="previousContext1":
+        res=json.dumps(
+        {
+        "speech": "What do you want to filter according to, rating or price?",
+        "displayText": "what do you want to fiter according to, rating or price? ",
+        # "data": data,
+        # "contextOut: [],
+        "source": "Yelp"
+        },indent=4)
+        res=make_response(res)
+        res.headers['Content-Type'] = 'application/json'
+        return res
+
+        
+    elif ac == "another":
+        res=json.dumps(
+        {
+        "speech": "Can you specify the location?",
+        "displayText": "Can you specify the location?",
+        # "data": data,
+        # "contextOut: [],
+        "source": "Yelp"
+        },indent=4)
+        res=make_response(res)
+        res.headers['Content-Type'] = 'application/json'
+        return res
+
+
+
 
 
     else :
@@ -94,7 +126,12 @@ def webhook():
 
     # print (req)
     es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
-    res = es.search(size=5,index="fb", body={"query": {"match":{"type":req}}})
+    res = es.searchres = es.search(size=1000,index="fb", body={"query" : {
+            "bool" : {
+                "must" : [
+                    { "match" : {"type" : req}}, 
+                    { "match" : {"location" : loc}}]
+        } }})
     #res = es.get(index="fb")
     listOfDicts = []
     listOfRating=[]
@@ -113,7 +150,9 @@ def webhook():
         res = makeWebhookResult2(listOfImage)
     elif ac=="display":
         res = makeWebhookResult(listOfImage)
-    else :
+    elif ac=="previousContext":
+        res=makeWebhookResult(listOfImage)
+    else:
         res=makeWebhookResult(listOfImage)
 
     # res=json.dumps(res,indent=4)
@@ -214,27 +253,26 @@ def makeWebhookResult1(data1):
 
 def makeWebhookResult(data):
     global para
-    if para ==0:
-        speech= "Here is the list:"+','.join(str(i['phone']) for i in data)
-        return {
-        "speech": speech,
-        "displayText": speech,
-        # "data": data,
-        # "contextOut: [],
-        "source": "Yelp"
-        }
-    else :
-        speech= "Here is the list"
-        for i in data:
-            speech = speech + str(i['name']) + str(i[para]) + "\n"
+    # if para ==0:
+    #     speech= "Here is the list:"+','.join(str(i['phone']) for i in data)
+    #     return {
+    #     "speech": speech,
+    #     "displayText": speech,
+    #     # "data": data,
+    #     # "contextOut: [],
+    #     "source": "Yelp"
+    #     }
+    speech= "Here is the list"
+    for i in data:
+        speech = speech + str(i['name']) + str(i[para]) + "\n"
         # para=0
-        return {
-        "speech": speech,
-        "displayText": speech,
+    return {
+    "speech": speech,
+    "displayText": speech,
         # "data": data,
         # "contextOut": [],
-        "source": "Yelp"
-        }
+    "source": "Yelp"
+    }
     
 def obtain_bearer_token(host, path):
     """Given a bearer token, send a GET request to the API.
