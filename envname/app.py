@@ -133,7 +133,7 @@ def processRequest1(req):
 
 def makeYqlQuery(req):
     city = "New York"
-    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + "New York" + "')"
+    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='New York')"
 
 
 def makeWebhookResult3(data):
