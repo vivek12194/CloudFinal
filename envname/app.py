@@ -81,7 +81,7 @@ def webhook():
     if ac=="restname":
         req= req.get("result").get("parameters").get("rest")
         es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
-        res = es.searchres = es.search(size=10,index="fb", body={"query":{"match":{"name":req}}})      
+        res = es.search(size=10,index="fb", body={"query": {"match":{"name":req}}})      
     #res = es.get(index="fb")
         listOfDicts = []
         listOfRating=[]
