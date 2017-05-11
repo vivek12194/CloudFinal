@@ -199,8 +199,8 @@ def makeWebhookResult2(data1):
     if data1 and len(data1)>0:
         speech= "Here is the list"
     else :
-        return {'speech':'Sorry I could not comme up with restaurants at this time',
-        "displayText":'Sorry I could not comme up with restaurants at this time',
+        return {'speech':'Sorry I could not come up with restaurants at this time',
+        "displayText":'Sorry I could not come up with restaurants at this time',
         'source':'API'}
     location="http://maps.google.com/?q="
     dict_of_elements=[]
@@ -243,8 +243,8 @@ def makeWebhookResult1(data1):
     if data1 and len(data1)>0:
         speech= "Here is the list"
     else :
-        return {'speech':'Sorry I could not comme up with restaurants at this time',
-        "displayText":'Sorry I could not comme up with restaurants at this time',
+        return {'speech':'Sorry I could not come up with restaurants at this time',
+        "displayText":'Sorry I could not come up with restaurants at this time',
         'source':'API'}
     for i in data1:
         speech = speech + str(i['name']) + str(i['rating']) + "\n"
@@ -262,8 +262,8 @@ def makeWebhookResult(data):
     if data and len(data)>0:
         speech= "Here is the list"
     else :
-        return {'speech':'Sorry I could not comme up with restaurants at this time',
-        "displayText":'Sorry I could not comme up with restaurants at this time',
+        return {'speech':'Sorry I could not come up with restaurants at this time',
+        "displayText":'Sorry I could not come up with restaurants at this time',
         'source':'API'}
     dict_of_elements=[]
     for i in data:
