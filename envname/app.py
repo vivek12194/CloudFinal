@@ -79,9 +79,9 @@ def webhook():
     ac=req.get("result").get("action")
     my_previous_action=req.get("result").get("parameters").get("my-action")
     if ac=="restname":
-        req= req.get("result").get("parameters").get("rest")
+        n= req1.get("result").get("parameters").get("rest")
         es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
-        res = es.search(size=10,index="fb", body={"query": {"match":{"name":req}}})      
+        res = es.search(size=10,index="fb", body={"query": {"match":{"name":n}}})      
     #res = es.get(index="fb")
         listOfDicts = []
         listOfRating=[]
@@ -91,7 +91,12 @@ def webhook():
             text=sourceValue['name']
             listOfRating.append(sourceValue['rating'])
             listOfImage.append(sourceValue)
-            listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text]))    # print (listOfDicts)
+            listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text])) 
+            res =makeWebhookResult1(listOfImage)   # print (listOfDicts)
+            res=json.dumps(res,indent=4)
+            res=make_response(res)
+            res.headers['Content-Type'] = 'application/json'
+            return res
 
     elif ac=="previousContext":
         #ac=my_previous_action
@@ -166,7 +171,7 @@ def webhook():
         listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text]))    # print (listOfDicts)
   
 
-    if ac=="restname":
+    if ac=="rating":
         res =makeWebhookResult1(listOfImage)
     elif ac=="address":
         res = makeWebhookResult2(listOfImage)
