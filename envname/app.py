@@ -73,13 +73,11 @@ def hello():
     return result
 @app.route('/webhook', methods=['POST','GET'])
 def webhook():
-    req1 = request.get_json(silent=True, force=True)
     req = request.get_json(silent=True, force=True)
-
     ac=req.get("result").get("action")
     my_previous_action=req.get("result").get("parameters").get("my-action")
     if ac=="restname":
-        n= req1.get("result").get("parameters").get("rest")
+        n= req.get("result").get("parameters").get("rest")
         es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
         res = es.search(size=10,index="fb", body={"query": {"match":{"name":n}}})      
     #res = es.get(index="fb")
@@ -294,7 +292,7 @@ def makeWebhookResult1(data):
             }
             }
             }},
-        source:'API'}
+        'source':'API'}
         
 
 
@@ -444,4 +442,4 @@ def query_api(term, location):
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=8080, threaded=True)
+    app.run(host="0.0.0.0", port=5000, threaded=True)
