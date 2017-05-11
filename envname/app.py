@@ -76,6 +76,7 @@ def webhook():
     req = request.get_json(silent=True, force=True)
 
     ac=req.get("result").get("action")
+    my_previous_action=req.get("result").get("my-action")
 
     place=req.get("result").get("parameters").get("geo-city")
     req=req.get("result").get("parameters").get("Cuisine")
@@ -95,6 +96,9 @@ def webhook():
         listOfRating.append(sourceValue['rating'])
         listOfImage.append(sourceValue)
         listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text]))    # print (listOfDicts)
+    if ac=="previousContext":
+        ac=my_previous_action
+
     if ac=="rating":
         res =makeWebhookResult1(listOfImage)
     elif ac=="address":
