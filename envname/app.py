@@ -17,6 +17,7 @@ import pprint
 import requests
 import sys
 import urllib
+para = 0
 
 host = 'search-foodbot-mdkkcuxnaa5sp446if67scolgm.us-east-1.es.amazonaws.com'
 port = 443
@@ -77,9 +78,17 @@ def webhook():
 
     ac=req.get("result").get("action")
     my_previous_action=req.get("result").get("parameters").get("my-action")
+    if ac=="previousContext":
+        ac=my_previous_action
+        place=req.get("result").get("parameters").get("geo-city")
+        req=req.get("result").get("parameters").get("Cuisine")
+        global par
+        par = req1.get("result").get("parameters").get(myparam)
 
-    place=req.get("result").get("parameters").get("geo-city")
-    req=req.get("result").get("parameters").get("Cuisine")
+
+    else :
+        place=req.get("result").get("parameters").get("geo-city")
+        req=req.get("result").get("parameters").get("Cuisine")
 
     
 
@@ -96,8 +105,7 @@ def webhook():
         listOfRating.append(sourceValue['rating'])
         listOfImage.append(sourceValue)
         listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text]))    # print (listOfDicts)
-    if ac=="previousContext":
-        ac=my_previous_action
+  
 
     if ac=="rating":
         res =makeWebhookResult1(listOfImage)
@@ -200,14 +208,28 @@ def makeWebhookResult1(data1):
 
 
 def makeWebhookResult(data):
-    speech= "Here is the list:"+','.join(str(i) for i in data)
-    return {
-    "speech": speech,
-    "displayText": speech,
+    global par
+    if par ==0:
+        speech= "Here is the list:"+','.join(str(i) for i in data)
+        return {
+        "speech": speech,
+        "displayText": speech,
         # "data": data,
         # "contextOut": [],
-    "source": "Yelp"
-    }
+        "source": "Yelp"
+        }
+    else :
+        speech= "Here is the list"
+        for i in data1:
+            speech = speech + str(i['name']) + str(i['par']) + "\n"
+        return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "Yelp"
+        }
+    
 def obtain_bearer_token(host, path):
     """Given a bearer token, send a GET request to the API.
     Args:
