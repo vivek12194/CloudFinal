@@ -174,7 +174,7 @@ def makeWebhookResult2(data1):
         ducs['buttons']=newList
         dict_of_elements.append(ducs)
 
-        return {'speech':speech,
+    return {'speech':speech,
         "displayText":speech,
         "data":{
         'facebook':{
@@ -227,6 +227,7 @@ def makeWebhookResult(data):
         speech= "Here is the list"
         for i in data:
             speech = speech + str(i['name']) + str(i[para]) + "\n"
+        # para=0
         return {
         "speech": speech,
         "displayText": speech,
