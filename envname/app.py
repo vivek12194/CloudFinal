@@ -84,7 +84,11 @@ def webhook():
         req=req.get("result").get("parameters").get("Cuisine")
         global para
         para = req1.get("result").get("parameters").get("myparam")
-        loc=req1.get("result").get("parameters").get("geo-city")
+        if req1.get("result").get("parameters").get("geo-city"):
+            c
+        else:
+            loc=req1.get("result").get("parameters").get("geo-city")
+
 
 
     elif ac=="previousContext1":
