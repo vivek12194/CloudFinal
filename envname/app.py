@@ -222,7 +222,7 @@ def makeWebhookResult(data):
     else :
         speech= "Here is the list"
         for i in data1:
-            speech = speech + str(i['name']) + str(i['para']) + "\n"
+            speech = speech + str(i['name']) + str(i['rating']) + "\n"
         return {
         "speech": speech,
         "displayText": speech,
