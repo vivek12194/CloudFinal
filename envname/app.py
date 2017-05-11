@@ -264,7 +264,7 @@ def makeWebhookResult(data):
     #     # "contextOut: [],
     #     "source": "Yelp"
     # }
-    # dict_of_elements=[]
+    dict_of_elements=[]
     for i in data:
         ducs={}
         ducs['title']=i['name']
