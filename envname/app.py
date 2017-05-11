@@ -196,7 +196,7 @@ def processRequest(req):
 
 
 def makeWebhookResult2(data1):
-    if len(data1)>0:
+    if data1 and len(data1)>0:
         speech= "Here is the list"
     else :
         return {'speech':'Sorry I could not comme up with restaurants at this time',
@@ -240,7 +240,7 @@ def makeWebhookResult2(data1):
         'source':'Yelp'}
 
 def makeWebhookResult1(data1):
-    if len(data1)>0:
+    if data1 and len(data1)>0:
         speech= "Here is the list"
     else :
         return {'speech':'Sorry I could not comme up with restaurants at this time',
@@ -259,7 +259,7 @@ def makeWebhookResult1(data1):
 
 
 def makeWebhookResult(data):
-    if len(data)>0:
+    if data and len(data)>0:
         speech= "Here is the list"
     else :
         return {'speech':'Sorry I could not comme up with restaurants at this time',
