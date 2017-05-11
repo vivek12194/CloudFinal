@@ -78,6 +78,21 @@ def webhook():
 
     ac=req.get("result").get("action")
     my_previous_action=req.get("result").get("parameters").get("my-action")
+    if ac=="restname":
+        req= req.get("result").get("parameters").get("rest")
+        es = Elasticsearch(hosts=[{'host': host,'port':port}],use_ssl=True,verify_certs=True,connection_class=RequestsHttpConnection)
+        res = es.searchres = es.search(size=10,index="fb", body={"query":{"match":{"name":req}}})      
+    #res = es.get(index="fb")
+        listOfDicts = []
+        listOfRating=[]
+        listOfImage=    []
+        for idx in range(len(res['hits']['hits'])):
+            sourceValue = res['hits']['hits'][idx]['_source']
+            text=sourceValue['name']
+            listOfRating.append(sourceValue['rating'])
+            listOfImage.append(sourceValue)
+            listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text]))    # print (listOfDicts)
+
     if ac=="previousContext":
         #ac=my_previous_action
         #place=req.get("result").get("parameters").get("geo-city")
@@ -151,7 +166,7 @@ def webhook():
         listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text]))    # print (listOfDicts)
   
 
-    if ac=="rating":
+    if ac=="restname":
         res =makeWebhookResult1(listOfImage)
     elif ac=="address":
         res = makeWebhookResult2(listOfImage)
@@ -239,22 +254,41 @@ def makeWebhookResult2(data1):
         }},
         'source':'Yelp'}
 
-def makeWebhookResult1(data1):
-    if data1 and len(data1)>0:
-        speech= "Here is the list"
-    else :
-        return {'speech':'Sorry I could not come up with restaurants at this time',
-        "displayText":'Sorry I could not come up with restaurants at this time',
-        'source':'API'}
-    for i in data1:
-        speech = speech + str(i['name']) + str(i['rating']) + "\n"
-    return {
-    "speech": speech,
-    "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
-    "source": "Yelp"
-    }
+def makeWebhookResult1(data):
+    dict_of_elements=[]
+    for i in data:
+        ducs={}
+        ducs['title']=i['name']
+        ducs['image_url']=i['image_url']
+        ducs['subtitle']=i['price']
+        new={}
+        new['type']='web_url'
+        new['url']=i['url']
+        new['title']='View website'
+        newPhone={}
+        newPhone['type']='phone_number'
+        newPhone['payload']=i['phone']
+        newPhone['title']='Call'
+        newList=[]
+        #mapOpener['payload']=location+''.join(str(x) for x in i['location']).replace(' ','+')
+        newList.append(new)
+        newList.append(newPhone)
+        #newList.append(mapOpener)
+        ducs['buttons']=newList
+        dict_of_elements.append(ducs)
+    return {'speech':"Here is a list",
+        "displayText":"Here is a list",
+        "data":{
+        'facebook':{
+        "attachment": {
+        "type": "template",
+        "payload": {
+        "template_type": "generic",
+        "elements": dict_of_elements
+        }
+        }
+        }},
+    source:'Yelp'}
     
 
 
