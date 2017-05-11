@@ -92,7 +92,7 @@ def webhook():
             listOfRating.append(sourceValue['rating'])
             listOfImage.append(sourceValue)
             listOfDicts.append(''.join([i if ord(i) < 128 else '' for i in text])) 
-         res =makeWebhookResult1(listOfImage)   # print (listOfDicts)
+        res =makeWebhookResult1(listOfImage)   # print (listOfDicts)
         res=json.dumps(res,indent=4)
         res=make_response(res)
         res.headers['Content-Type'] = 'application/json'
