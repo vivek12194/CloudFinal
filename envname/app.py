@@ -151,6 +151,7 @@ def processRequest(req):
 
 def makeWebhookResult2(data1):
     speech= "Here is the list"
+    location="http://maps.google.com/?q="
     dict_of_elements=[]
     for i in data1:
         ducs={}
@@ -166,10 +167,16 @@ def makeWebhookResult2(data1):
         newPhone['payload']=i['phone']
         newPhone['title']='Call'
         newList=[]
+        mapOpener={}
+        mapOpener['type']='web_url'
+        mapOpener['title']='Open in Maps'
+        mapOpener['payload']=location+''.join(str(x) for x in i['location']).replace(' ','+')
         newList.append(new)
         newList.append(newPhone)
+        newList.append(mapOpener)
         ducs['buttons']=newList
         dict_of_elements.append(ducs)
+
         return {'speech':speech,
         "displayText":speech,
         "data":{
@@ -216,13 +223,13 @@ def makeWebhookResult(data):
         "speech": speech,
         "displayText": speech,
         # "data": data,
-        # "contextOut": [],
+        # "contextOut: [],
         "source": "Yelp"
         }
     else :
         speech= "Here is the list"
         for i in data:
-            speech = speech + str(i['name']) + str(i['para']) + "\n"
+            speech = speech + str(i['name']) + str(i['rating']) + "\n"
         return {
         "speech": speech,
         "displayText": speech,
