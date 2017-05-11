@@ -76,7 +76,7 @@ def webhook():
     req = request.get_json(silent=True, force=True)
 
     ac=req.get("result").get("action")
-    my_previous_action=req.get("result").get("my-action")
+    my_previous_action=req.get("result").get("parameters").get("my-action")
 
     place=req.get("result").get("parameters").get("geo-city")
     req=req.get("result").get("parameters").get("Cuisine")
