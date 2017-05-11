@@ -99,11 +99,12 @@ def webhook():
     elif ac=="previousContext":
         #ac=my_previous_action
         #place=req.get("result").get("parameters").get("geo-city")
-        req=req.get("result").get("parameters").get("Cuisine")
         global para
-        para = req1.get("result").get("parameters").get("myparam")
+        para = req.get("result").get("parameters").get("myparam")
         #if req1.get("result").get("parameters").get("geo-city"):
-        loc=req1.get("result").get("parameters").get("geo-city")
+        loc=req.get("result").get("parameters").get("geo-city")
+        print (req)
+        req=req["result"]["parameters"].get("Cuisine")
         #else:
             #loc=req1.get("result").get("parameters").get("geo-state-us")
 
