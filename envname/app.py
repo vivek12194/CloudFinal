@@ -85,9 +85,9 @@ def webhook():
         global para
         para = req1.get("result").get("parameters").get("myparam")
         if req1.get("result").get("parameters").get("geo-city"):
-            c
-        else:
             loc=req1.get("result").get("parameters").get("geo-city")
+        else:
+            loc=req1.get("result").get("parameters").get("geo-state")
 
 
 
@@ -196,7 +196,12 @@ def processRequest(req):
 
 
 def makeWebhookResult2(data1):
-    speech= "Here is the list"
+    if len(data1)>0:
+        speech= "Here is the list"
+    else :
+        return {'speech':'Sorry I could not comme up with restaurants at this time',
+        "displayText":'Sorry I could not comme up with restaurants at this time',
+        'source':'API'}
     location="http://maps.google.com/?q="
     dict_of_elements=[]
     for i in data1:
