@@ -233,7 +233,7 @@ def makeWebhookResult2(data1):
         ducs={}
         ducs['title']=i['name']
         ducs['image_url']=i['image_url']
-        ducs['subtitle']=i['price']+'\t'+i['rating']
+        ducs['subtitle']="Price:"+str(i['price'])+'    Rating'+str(i['rating'])
         new={}
         new['type']='web_url'
         new['url']=i['url']
@@ -271,7 +271,7 @@ def makeWebhookResult1(data):
             ducs={}
             ducs['title']=i['name']
             ducs['image_url']=i['image_url']
-            ducs['subtitle']=i['price']+'\t'+i['rating']
+            ducs['subtitle']="Price:"+str(i['price'])+'    Rating'+str(i['rating'])
             new={}
             new['type']='web_url'
             new['url']=i['url']
@@ -315,7 +315,7 @@ def makeWebhookResult(data):
         ducs={}
         ducs['title']=i['name']
         ducs['image_url']=i['image_url']
-        ducs['subtitle']=i['price']+'\t'+i['rating']
+        ducs['subtitle']="Price:"+str(i['price'])+'    Rating'+str(i['rating'])
         new={}
         new['type']='web_url'
         new['url']=i['url']
