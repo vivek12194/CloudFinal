@@ -103,8 +103,8 @@ def webhook():
         res =makeWebhookResult1(listOfImage)
     elif ac=="address":
         res = makeWebhookResult2(listOfImage)
-    elif ac=="weather":
-        res = processRequest1(req1)
+    elif ac=="display":
+        res = makeWebhookResult(req1)
     else :
         res=makeWebhookResult(listOfImage)
 
